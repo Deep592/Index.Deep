@@ -1,0 +1,49 @@
+#Using Python 3
+
+"""
+Given a list of n numbers, ranging from 0 to 3,
+transpose the values into a nxn grid,
+and return the number of local maxima present.
+"""
+import math
+import numpy
+import random
+
+def localMaxima(nums):
+  n = math.sqrt(len(nums))
+  m = math.ceil(n)
+  if (m-n>0):
+    for x in range(1,m*m-len(nums)+1):
+      nums.append(0)
+    n=m
+  print("Grid: ",n,"x",n)
+
+  matrixnxn = numpy.array(nums)
+  shape = (n,n)
+  matrixnxn = matrixnxn.reshape(shape)
+  print(matrixnxn)
+
+  count = 0
+  try:
+    for y in range(0,len(nums)-1):
+      if nums[y]>nums[y+1] and \
+        nums[y]>nums[y-1] and \
+        nums[y]>nums[y+n] and \
+        nums[y]>nums[y-n] and \
+        nums[y]>nums[y+n+1] and \
+        nums[y]>nums[y+n-1] and \
+        nums[y]>nums[y-n+1] and \
+        nums[y]>nums[y-n-1]:
+        count+=1
+  except IndexError:
+    None
+  
+  print("The number of local maxima is: ",count)
+
+bank = [0,1,2,3]
+lst = []
+for i in range(20): #Range is variable.
+  lst.append(random.choice(bank))
+localMaxima(lst)
+
+
